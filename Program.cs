@@ -8,10 +8,17 @@ public class Program
 {
     public static void Main(string[] args)
     { 
-        PhoneBook phoneBook = new PhoneBook();
+        PhoneBook phoneBooks = new PhoneBook();
 
-        phoneBook.InsertPhone("Phu Tam", "0987654321");
-
+        phoneBooks.InsertPhone("Phu Tam", "0987654321");
+        phoneBooks.InsertPhone("Tran Thuy", "123456789");
+        phoneBooks.InsertPhone("John", "1234567890");
+        phoneBooks.InsertPhone("Mary", "0987654321");
+        phoneBooks.InsertPhone("John", "1111111111");
+        phoneBooks.RemovePhone("Mary");
+        phoneBooks.UpdatePhone("John", "2222222222");
+        phoneBooks.SearchPhone("Phu Tam");
+        phoneBooks.Sort();
     }
 
     public static void Main4(string[] args)

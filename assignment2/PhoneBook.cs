@@ -8,79 +8,86 @@ namespace T2210A_CSharp.assignment2
 {
     internal class PhoneBook : Phone
     {
-        private List<string> phoneList;
-
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public PhoneBook(string Name, string PhoneNumber)
-        {
-            this.Name = Name;
-            this.PhoneNumber = PhoneNumber;
-        }
-
-        public override string ToString()
-        {
-            return "Name: " + Name + "   Phone: " + PhoneNumber;
-        }
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            PhoneBook objAsPhoneBook = obj as PhoneBook;
-            if (objAsPhoneBook == null) return false;
-            else return Equals(objAsPhoneBook);
-        }
-        public override int GetHashCode()
-        {
-            return 1; ////////////////////////////////////
-        }
-        public bool Equals(PhoneBook other)
-        {
-            if (other == null) return false;
-            return (this.Name.Equals(other.Name));
-        }
-        // Should also override == and != operators.
-
-        public PhoneBook()
-        {
-            phoneList = new List<string>();
-        }
-
-        public List<string> PhoneList
-        {
-            get => phoneList; 
-            set => phoneList = value;
-        }
-
-        // indexer
-        public string this[int index]
-        {
-            get => phoneList[index];
-            set => phoneList[index] = value;
-        }
+        List<string> PhoneList = new List<string>();
 
         public override void InsertPhone(string name, string phone)
         {
-            phoneList.Add(new PhoneBook() { Name = name, PhoneNumber = phone });
+            bool flag = false;
+            for (int i = 0; i < PhoneList.Count; i += 2)
+            {
+                if (PhoneList[i] == name)
+                {
+                    PhoneList[i + 1] = phone;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                PhoneList.Add(name);
+                PhoneList.Add(phone);
+            }
         }
 
-        public override void RemovePhone(string Name)
+        public override void RemovePhone(string name)
         {
-            phoneList.Remove(Name);
+            for (int i = 0; i < PhoneList.Count; i += 2)
+            {
+                if (PhoneList[i] == name)
+                {
+                    PhoneList.RemoveAt(i);
+                    PhoneList.RemoveAt(i);
+                    i -= 2;
+                }
+            }
         }
 
-        public override void UpdatePhone(string Name, string newPhone)
+        public override void UpdatePhone(string name, string newphone)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < PhoneList.Count; i += 2)
+            {
+                if (PhoneList[i] == name)
+                {
+                    PhoneList[i + 1] = newphone;
+                }
+            }
         }
 
-        public override void SearchPhone(string Name)
+        public override void SearchPhone(string name)
         {
-            throw new NotImplementedException();
+            bool flag = false;
+            for (int i = 0; i < PhoneList.Count; i += 2)
+            {
+                if (PhoneList[i] == name)
+                {
+                    Console.WriteLine($"{name}: {PhoneList[i + 1]}");
+                    flag = true;
+                }
+            }
+            if (!flag)
+            {
+                Console.WriteLine($"There is no phone number found for {name}");
+            }
         }
 
         public override void Sort()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < PhoneList.Count - 2; i += 2)
+            {
+                for (int j = i + 2; j < PhoneList.Count; j += 2)
+                {
+                    if (string.Compare(PhoneList[i], PhoneList[j]) > 0)
+                    {
+                        string tempName = PhoneList[i];
+                        string tempPhone = PhoneList[i + 1];
+                        PhoneList[i] = PhoneList[j];
+                        PhoneList[i + 1] = PhoneList[j + 1];
+                        PhoneList[j] = tempName;
+                        PhoneList[j + 1] = tempPhone;
+                    }
+                }
+            }
         }
     }
 }
+        
