@@ -10,9 +10,15 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        BankAccount ba = new BankAccount(500000);
-        ba.Deposit(200000);
-        ba.Withdraw(150000);
+        BankAccount PhuTam = new BankAccount();
+        Console.WriteLine("Phu Tam's balance: " + PhuTam);
+        PhuTam.Deposit(200000);
+        PhuTam.Withdraw(150000);
+
+        BankAccount TranThuy = new BankAccount(500000);
+        Console.WriteLine("\nTran Thuy's balance: " + TranThuy);
+        TranThuy.Deposit(200000);
+        TranThuy.Withdraw(150000);
     }
 
     public static void Main6(string[] args)

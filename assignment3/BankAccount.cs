@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace T2210A_CSharp.assignment3
 {
-    public delegate void UpdateBalanceHandler(double balance);
+    public delegate void UpdateBalanceHandler(double balance, string typeOfChange);
     internal class BankAccount
     {
         private double balance;
@@ -21,13 +21,18 @@ namespace T2210A_CSharp.assignment3
         {
             BalanceChanged += NotifyChangedbalance;
         }
+
+        public override string ToString()
+        {
+            return "" +balance;
+        }
         public double Balance
         {
             get => balance;
             set
             {
                 balance = value; // Kiểm tra xem event BalanceChanged có null hay không trước khi gọi nó.
-                BalanceChanged?.Invoke(balance);
+                BalanceChanged?.Invoke(balance, "");
             }
             }
 
@@ -36,7 +41,7 @@ namespace T2210A_CSharp.assignment3
             if (amount > 0)
             {
                 Balance += amount;
-                BalanceChanged(amount);
+                BalanceChanged(amount, "+");
             }
             else
             {
@@ -49,7 +54,7 @@ namespace T2210A_CSharp.assignment3
             if (amount < Balance)
             {
                 Balance -= amount;
-                BalanceChanged(amount);
+                BalanceChanged(amount, "-");
             }
             else
             {
@@ -57,9 +62,9 @@ namespace T2210A_CSharp.assignment3
             }
         }
 
-        public void NotifyChangedbalance(double balance)
+        public void NotifyChangedbalance(double balance, string typeOfChange)
         {
-            Console.WriteLine("Balance changed: " + balance);
+            Console.WriteLine("Balance changed: " + typeOfChange + balance);
         }
     }
 }
