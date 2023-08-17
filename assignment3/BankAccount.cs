@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace T2210A_CSharp.assignment3
 {
-    public delegate void UpdateBalanceHandler(double balance, string typeOfChange);
+    public delegate void UpdateBalanceHandler(decimal balance, string typeOfChange);
     internal class BankAccount
     {
-        private double balance;
+        private decimal balance;
         public event UpdateBalanceHandler BalanceChanged;
 
-        public BankAccount(double balance)
+        public BankAccount(decimal balance)
         {
             this.balance = balance;
             BalanceChanged += NotifyChangedbalance;
@@ -26,22 +26,22 @@ namespace T2210A_CSharp.assignment3
         {
             return "" +balance;
         }
-        public double Balance
+        public decimal Balance
         {
             get => balance;
             set
             {
                 balance = value; // Kiểm tra xem event BalanceChanged có null hay không trước khi gọi nó.
-                BalanceChanged?.Invoke(balance, "");
+                BalanceChanged?.Invoke(balance, "Balance: ");
             }
             }
 
-        public void Deposit(double amount)
+        public void Deposit(decimal amount)
         {
             if (amount > 0)
             {
-                Balance += amount;
                 BalanceChanged(amount, "+");
+                Balance += amount;
             }
             else
             {
@@ -49,12 +49,12 @@ namespace T2210A_CSharp.assignment3
             }
         }
 
-        public void Withdraw(double amount)
+        public void Withdraw(decimal amount)
         {
             if (amount < Balance)
             {
-                Balance -= amount;
                 BalanceChanged(amount, "-");
+                Balance -= amount;
             }
             else
             {
@@ -62,9 +62,9 @@ namespace T2210A_CSharp.assignment3
             }
         }
 
-        public void NotifyChangedbalance(double balance, string typeOfChange)
+        public void NotifyChangedbalance(decimal balance, string typeOfChange)
         {
-            Console.WriteLine("Balance changed: " + typeOfChange + balance);
+            Console.WriteLine(typeOfChange + balance);
         }
     }
 }

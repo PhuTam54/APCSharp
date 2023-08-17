@@ -12,13 +12,13 @@ public class Program
     {
         BankAccount PhuTam = new BankAccount();
         Console.WriteLine("Phu Tam's balance: " + PhuTam);
-        PhuTam.Deposit(200000);
-        PhuTam.Withdraw(150000);
+        PhuTam.Deposit(1000000000);
+        PhuTam.Withdraw(150000000);
 
-        BankAccount TranThuy = new BankAccount(500000);
+        BankAccount TranThuy = new BankAccount(500000000);
         Console.WriteLine("\nTran Thuy's balance: " + TranThuy);
-        TranThuy.Deposit(200000);
-        TranThuy.Withdraw(150000);
+        TranThuy.Deposit(2000000000);
+        TranThuy.Withdraw(150000000);
     }
 
     public static void Main6(string[] args)
