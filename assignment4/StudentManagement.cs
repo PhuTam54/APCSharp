@@ -15,15 +15,19 @@ namespace T2210A_CSharp.assignment4
             int choice;
             do
             {
-                Console.WriteLine("1. Add student.");
-                Console.WriteLine("2. Update student by ID.");
-                Console.WriteLine("3. Delete student by ID.");
-                Console.WriteLine("4. Search student by name.");
-                Console.WriteLine("5. Sort students by GPA.");
-                Console.WriteLine("6. Sort students by name.");
-                Console.WriteLine("7. Sort students by ID.");
-                Console.WriteLine("8. Display student list.");
-                Console.WriteLine("0. Exit.");
+                Console.WriteLine("_____________________________");
+                Console.WriteLine("|           Menu            |");
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("|1| Add student.            |");
+                Console.WriteLine("|2| Update student by ID.   |");
+                Console.WriteLine("|3| Delete student by ID.   |");
+                Console.WriteLine("|4| Search student by name. |");
+                Console.WriteLine("|5| Sort students by GPA.   |");
+                Console.WriteLine("|6| Sort students by name.  |");
+                Console.WriteLine("|7| Sort students by ID.    |");
+                Console.WriteLine("|8| Display student list.   |");
+                Console.WriteLine("|0| Exit.                   |");
+                Console.WriteLine("|_|_________________________|");
                 Console.Write("Enter your choice: ");
                 choice = int.Parse(Console.ReadLine());
                 switch (choice)
@@ -63,33 +67,11 @@ namespace T2210A_CSharp.assignment4
         }
         public void AddStudent()
         {
-            Console.WriteLine("Enter student information:");
-            Console.Write("ID: ");
-            int id = int.Parse(Console.ReadLine());
-            Console.Write("Name: ");
-            string name = Console.ReadLine();
-            Console.Write("Gender: ");
-            string gender = Console.ReadLine();
-            Console.Write("Age: ");
-            int age = int.Parse(Console.ReadLine());
-            Console.Write("Math score: ");
-            double mathScore = double.Parse(Console.ReadLine());
-            Console.Write("Physics score: ");
-            double physicsScore = double.Parse(Console.ReadLine());
-            Console.Write("Chemistry score: ");
-            double chemistryScore = double.Parse(Console.ReadLine());
-            Student student = new Student(id, name, gender, age, mathScore, physicsScore, chemistryScore);
-            studentList.Add(student);
-        }
-
-        public void UpdateStudent()
-        {
-            Console.Write("Enter student ID to update: ");
-            int id = int.Parse(Console.ReadLine());
-            Student student = studentList.Find(s => s.Id == id);
-            if (student != null)
+            try
             {
-                Console.WriteLine("Enter new information:");
+                Console.WriteLine("Enter student information:");
+                Console.Write("ID: ");
+                int id = int.Parse(Console.ReadLine());
                 Console.Write("Name: ");
                 string name = Console.ReadLine();
                 Console.Write("Gender: ");
@@ -102,30 +84,66 @@ namespace T2210A_CSharp.assignment4
                 double physicsScore = double.Parse(Console.ReadLine());
                 Console.Write("Chemistry score: ");
                 double chemistryScore = double.Parse(Console.ReadLine());
-                student.Name = name;
-                student.Gender = gender;
-                student.Age = age;
-                student.MathScore = mathScore;
-                student.PhysicsScore = physicsScore;
-                student.ChemistryScore = chemistryScore;
-                student.GPA = Math.Round((mathScore + physicsScore + chemistryScore) / 3, 2);
-                if (student.GPA >= 8)
+                Student student = new Student(id, name, gender, age, mathScore, physicsScore, chemistryScore);
+                studentList.Add(student);
+                Console.WriteLine($"Student with Name {name} has been added successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Wrong input! Try again.");
+            }
+        }
+
+        public void UpdateStudent()
+        {
+            Console.Write("Enter student ID to update: ");
+            int id = int.Parse(Console.ReadLine());
+            Student student = studentList.Find(s => s.Id == id);
+            if (student != null)
+            {
+                try 
                 {
-                    student.Result = "Very Good";
-                }
-                else if (student.GPA >= 6.5)
+                    Console.WriteLine("Enter new information:");
+                    Console.Write("Name: ");
+                    string name = Console.ReadLine();
+                    Console.Write("Gender: ");
+                    string gender = Console.ReadLine();
+                    Console.Write("Age: ");
+                    int age = int.Parse(Console.ReadLine());
+                    Console.Write("Math score: ");
+                    double mathScore = double.Parse(Console.ReadLine());
+                    Console.Write("Physics score: ");
+                    double physicsScore = double.Parse(Console.ReadLine());
+                    Console.Write("Chemistry score: ");
+                    double chemistryScore = double.Parse(Console.ReadLine());
+                    student.Name = name;
+                    student.Gender = gender;
+                    student.Age = age;
+                    student.MathScore = mathScore;
+                    student.PhysicsScore = physicsScore;
+                    student.ChemistryScore = chemistryScore;
+                    student.GPA = Math.Round((mathScore + physicsScore + chemistryScore) / 3, 2);
+                    if (student.GPA >= 8)
+                    {
+                        student.Result = "Very Good";
+                    }
+                    else if (student.GPA >= 6.5)
+                    {
+                        student.Result = "Good";
+                    }
+                    else if (student.GPA >= 5)
+                    {
+                        student.Result = "Average";
+                    }
+                    else
+                    {
+                        student.Result = "Weak";
+                    }
+                    Console.WriteLine($"Student with ID {id} has been updated successfully.");
+                } catch(Exception ex)
                 {
-                    student.Result = "Good";
+                Console.WriteLine("Wrong input! Try again.");
                 }
-                else if (student.GPA >= 5)
-                {
-                    student.Result = "Average";
-                }
-                else
-                {
-                    student.Result = "Weak";
-                }
-                Console.WriteLine($"Student with ID {id} has been updated successfully.");
             }
             else
             {
