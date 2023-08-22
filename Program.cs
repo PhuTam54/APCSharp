@@ -1,14 +1,154 @@
 ﻿using T2210A_CSharp.demo2;
 using System.Collections.Generic;
 using T2210A_CSharp.assignment1;
-using T2210A_CSharp.demo3;
 using T2210A_CSharp.assignment2;
+using T2210A_CSharp.demo3;
 using T2210A_CSharp.demo4;
 using T2210A_CSharp.assignment3;
+using T2210A_CSharp.demo5;
+using T2210A_CSharp.assignment4;
 
 public class Program
 {
-    public static void Main(string[] args)
+    static void Main(string[] args)
+    {
+        StudentManagement sm = new StudentManagement();
+        sm.Start();
+    }
+
+public static void Main9(string[] args)
+    {
+        DemoNumber dm = new DemoNumber() { x = 0, y = 0};
+        //
+        // Thread1
+        new Thread(delegate ()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                lock (dm)
+                {
+                    dm.ChangeData();
+                    dm.PrintData();
+                }
+                try
+                {
+                    Thread.Sleep(1000);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+        }).Start();
+
+        // Thread2
+        new Thread(delegate ()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                lock (dm)
+                {
+                    dm.ChangeData();
+                    dm.PrintData();
+                }
+                try
+                {
+                    Thread.Sleep(1000);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+        }).Start();
+    }
+
+    public static void Main10(string[] args)
+    {
+        Thread t = new Thread(RunThread);
+        t.Start("Sub t");
+
+        Thread t2 = new Thread(
+            delegate ()
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    Console.WriteLine("Sub t2 i = " + i);
+                    try
+                    {
+                        Thread.Sleep(1000);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
+                }
+            }
+        );
+        t2.IsBackground = true;
+        t2.Start();
+
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine("Main i = " + i);
+            try
+            {
+                Thread.Sleep(1000);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+    }
+
+    private static void RunThread(object o)
+    {
+        string s = o as string;
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine(s + "= " + i);
+            try
+            {
+                Thread.Sleep(1000);
+            } catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+    }
+
+    public static void Main8(string[] args)
+    {
+        try
+        {
+            int x = 10;
+            int y = 0;
+            Console.WriteLine("x = " + x);
+            Console.WriteLine("y = " + y);
+            if (y < 5)
+            {
+                throw new Exception("Phải chia 5 mới tiết kiệm");
+            }
+            int z = x / y;
+            Console.WriteLine("z = " + z);
+        }
+        catch (ArithmeticException e)
+        {
+            Console.WriteLine(e.Message);
+            Console.WriteLine(1);
+        } catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.WriteLine(2);
+        }
+        finally
+        {
+
+        }
+    }
+
+    public static void Main7(string[] args)
     {
         BankAccount PhuTam = new BankAccount();
         Console.WriteLine("Phu Tam's balance: " + PhuTam);
@@ -116,13 +256,13 @@ public class Program
     }
     public static void Main2(string[] args)
     {
-        Student s = new Student();
-        s.Name = "Tam";
-        s.Eat();
-        s.Eat("aaa");
+        //T2210A_CSharp.assignment2.Student s = new T2210A_CSharp.assignment2.Student();
+        //s.Name = "Tam";
+        //s.Eat();
+        //s.Eat("aaa");
 
-        List<Student> listStudents = new List<Student>();
-        listStudents.Add(s);
+        //List<T2210A_CSharp.assignment4.Student> listStudents = new List<T2210A_CSharp.assignment4.Student>();
+        //listStudents.Add(s);
     }
     public static void Main1(string[] args)
     {
