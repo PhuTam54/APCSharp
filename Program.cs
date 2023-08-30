@@ -7,10 +7,57 @@ using T2210A_CSharp.demo4;
 using T2210A_CSharp.assignment3;
 using T2210A_CSharp.demo5;
 using T2210A_CSharp.assignment4;
+using GeometryExample;
+using T2210A_CSharp.final_exam2;
 
 public class Program
 {
     static void Main(string[] args)
+    {
+        Tiger tiger = new Tiger(100.0, "Tiger");
+        Lion lion = new Lion(200.0, "Lion");
+
+        lion.Show();
+        Console.WriteLine();
+        tiger.Show();
+    }
+
+    static void MainExam1(string[] args)
+    {
+        double radius;
+        bool radiussuccess;
+        double height;
+        bool heightsuccess;
+
+        do
+        {
+            Console.WriteLine("Enter the dimenstions of the cylinder");
+            Console.WriteLine("Radius");  string input = Console.ReadLine();
+            
+            radiussuccess = Double.TryParse(input, out radius);
+
+            if (!radiussuccess)
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+            }
+        } while (!radiussuccess);
+        do
+        {
+            Console.WriteLine("Height");string input = Console.ReadLine();
+            heightsuccess = Double.TryParse(input, out height);
+
+            if (!heightsuccess)
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+            }
+        } while (!heightsuccess);
+
+        Cylinder cylinder = new Cylinder(radius, height);
+        cylinder.Process();
+        Console.WriteLine(cylinder.Result());
+    }
+
+    static void Main10(string[] args)
     {
         StudentManagement sm = new StudentManagement();
         sm.Start();
@@ -63,7 +110,7 @@ public static void Main9(string[] args)
         }).Start();
     }
 
-    public static void Main10(string[] args)
+    public static void Main11(string[] args)
     {
         Thread t = new Thread(RunThread);
         t.Start("Sub t");
